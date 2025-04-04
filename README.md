@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -118,24 +119,28 @@
       color: #ff69b4;
     }
 
-    .key-reflection {
-      font-family: 'Crimson Text', serif;
-      background: #1a003e;
-      color: #d0c0ff;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      border-radius: 8px;
-      position: relative;
-      border: 1px solid #3d3d3d;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    }
-  
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+    .info-block {
+  background: #1a003e;
+  color: #f0eaff;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  box-shadow: 0 0 10px rgba(255, 192, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.info-row {
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  font-weight: bold;
+  color: #b57edc;
+  margin-right: 0.5rem;
+  display: inline-block;
+  min-width: 120px;
+}
+
 
 th, td {
   padding: 1rem;
@@ -166,28 +171,83 @@ body {
 
     <h2>Primary Key Tables</h2>
     <div class="table-container">
-      <h3>Authors Table</h3>
-      <table>
-        <tr><th>Author</th><th>Author ID</th><th>Nationality</th><th>Language</th></tr>
-        <tr><td>Jane Austen</td><td>1</td><td>British</td><td>English</td></tr>
-        <tr><td>Herman Melville</td><td>2</td><td>American</td><td>English</td></tr>
-        <tr><td>George Orwell</td><td>3</td><td>British</td><td>English</td></tr>
-        <tr><td>Harper Lee</td><td>4</td><td>American</td><td>English</td></tr>
-        <tr><td>F. Scott Fitzgerald</td><td>5</td><td>American</td><td>English</td></tr>
-      </table>
-    </div>
+  <h3>Authors Table</h3>
 
-    <div class="table-container">
-      <h3>Checkouts Table</h3>
-      <table>
-        <tr><th>Checkout ID</th><th>Book ID</th><th>Checkout Date</th><th>Member ID</th></tr>
-        <tr><td>101</td><td>1</td><td>2024-03-15</td><td>201</td></tr>
-        <tr><td>102</td><td>2</td><td>2024-02-22</td><td>202</td></tr>
-        <tr><td>103</td><td>3</td><td>2024-03-01</td><td>203</td></tr>
-        <tr><td>104</td><td>4</td><td>2024-03-10</td><td>204</td></tr>
-        <tr><td>105</td><td>5</td><td>2024-02-28</td><td>205</td></tr>
-      </table>
-    </div>
+  <div class="info-block">
+    <div class="info-row"><span class="label">Author:</span> Jane Austen</div>
+    <div class="info-row"><span class="label">Author ID:</span> 1</div>
+    <div class="info-row"><span class="label">Nationality:</span> British</div>
+    <div class="info-row"><span class="label">Language:</span> English</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Author:</span> Herman Melville</div>
+    <div class="info-row"><span class="label">Author ID:</span> 2</div>
+    <div class="info-row"><span class="label">Nationality:</span> American</div>
+    <div class="info-row"><span class="label">Language:</span> English</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Author:</span> George Orwell</div>
+    <div class="info-row"><span class="label">Author ID:</span> 3</div>
+    <div class="info-row"><span class="label">Nationality:</span> British</div>
+    <div class="info-row"><span class="label">Language:</span> English</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Author:</span> Harper Lee</div>
+    <div class="info-row"><span class="label">Author ID:</span> 4</div>
+    <div class="info-row"><span class="label">Nationality:</span> American</div>
+    <div class="info-row"><span class="label">Language:</span> English</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Author:</span> F. Scott Fitzgerald</div>
+    <div class="info-row"><span class="label">Author ID:</span> 5</div>
+    <div class="info-row"><span class="label">Nationality:</span> American</div>
+    <div class="info-row"><span class="label">Language:</span> English</div>
+  </div>
+</div>
+
+<div class="table-container">
+  <h3>Checkouts Table</h3>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Checkout ID:</span> 101</div>
+    <div class="info-row"><span class="label">Book ID:</span> 1</div>
+    <div class="info-row"><span class="label">Checkout Date:</span> 2024-03-15</div>
+    <div class="info-row"><span class="label">Member ID:</span> 201</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Checkout ID:</span> 102</div>
+    <div class="info-row"><span class="label">Book ID:</span> 2</div>
+    <div class="info-row"><span class="label">Checkout Date:</span> 2024-02-22</div>
+    <div class="info-row"><span class="label">Member ID:</span> 202</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Checkout ID:</span> 103</div>
+    <div class="info-row"><span class="label">Book ID:</span> 3</div>
+    <div class="info-row"><span class="label">Checkout Date:</span> 2024-03-01</div>
+    <div class="info-row"><span class="label">Member ID:</span> 203</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Checkout ID:</span> 104</div>
+    <div class="info-row"><span class="label">Book ID:</span> 4</div>
+    <div class="info-row"><span class="label">Checkout Date:</span> 2024-03-10</div>
+    <div class="info-row"><span class="label">Member ID:</span> 204</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-row"><span class="label">Checkout ID:</span> 105</div>
+    <div class="info-row"><span class="label">Book ID:</span> 5</div>
+    <div class="info-row"><span class="label">Checkout Date:</span> 2024-02-28</div>
+    <div class="info-row"><span class="label">Member ID:</span> 205</div>
+  </div>
+</div>
+
 
     <h2>Primary Keys Analysis</h2>
     <div class="key-reflection">
