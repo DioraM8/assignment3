@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -130,7 +129,36 @@
       border: 1px solid #3d3d3d;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     }
-  </style>
+  
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f0eaff;
+}
+
+th {
+  background-color: rgba(128, 179, 255, 0.2);
+  color: #80b3ff;
+}
+
+tr:hover {
+  background-color: rgba(75, 0, 130, 0.4);
+}
+
+body {
+  background-color: #0b002b;
+  color: white;
+}
+
+</style>
 </head>
 <body>
   <div class="content" id="content">
