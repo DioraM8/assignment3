@@ -253,7 +253,9 @@ body {
     <div class="key-reflection">
       <p>Looking at these database tables, I can see the importance of primary keys in establishing unique identifiers. The Authors table uses Author ID as its primary key, which allows for efficient reference and prevents duplicate entries. Each author is assigned a unique numeric identifier.</p>
       <p>In the Checkouts table, we have Checkout ID as the primary key, with Book ID and Member ID serving as foreign keys that link to other tables. The primary key ensures each checkout record can be uniquely identified in the system.</p>
-      <p>Primary keys are fundamental to database design because they enforce entity integrity. Without them, it would be difficult to maintain data consistency or create proper relationships between tables. In this database structure, the primary keys enable us to track which books are checked out by which members without ambiguity.</p>
+      <p>Primary keys are really important in database design because they help keep everything organized and accurate. They make sure each item in a table is unique and easy to find, which is super helpful when you're connecting data between different tables. For example, in this project, primary keys made it easier to track which books were checked out by which members without getting things mixed up.
+
+While working on this assignment, I ran into a few challenges. At first, I messed up the Books table by writing "yes" or "no" under the "available" column, but it was actually supposed to be "true" or "false." That caused a bit of confusion until I realized the issue. I also had a weird moment while validating my primary keys—a spider crawled across my keyboard mid-process, which honestly made things even more chaotic! But in the end, it all helped me understand how essential primary keys are and how even small mistakes can trip things up when you're working with databases.</p>
     </div>
   </div>
 
