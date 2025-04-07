@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database Project - Space Theme</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Crimson+Text&family=Orbitron&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #ff69b4;
+      --accent-color: #b57edc;
+      --light-text: #f0eaff;
+      --dark-bg: #0b002b;
+      --panel-bg: rgba(25, 25, 50, 0.8);
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0F1234, #1F1456);
+      color: var(--light-text);
+      perspective: 1000px;
+      min-height: 100vh;
+      overflow-x: hidden;    
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle, rgba(100, 100, 100, 0.1) 1px, transparent 1px),
+        radial-gradient(circle, rgba(80, 80, 80, 0.05) 2px, transparent 2px);
+      background-size: 50px 50px, 100px 100px;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: var(--panel-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(138, 43, 226, 0.3), 
+                  0 5px 15px rgba(65, 105, 225, 0.4);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 105, 180, 0.2);
+      transform-style: preserve-3d;
+      animation: float 6s ease-in-out infinite;
+    }
+        
+    @keyframes float {
+      0% { transform: translateY(0px) rotateX(2deg) rotateY(-2deg); }
+      50% { transform: translateY(-15px) rotateX(3deg) rotateY(2deg); }
+      100% { transform: translateY(0px) rotateX(2deg) rotateY(-2deg); }
+    }
+   
+    h1, h2 {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      text-shadow: 0 0 20px var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .content {
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease-in-out;
+      max-width: 850px;
+      margin: 40px auto;
+    }
+    
+    .content.clicked {
+      transform: rotateY(10deg) rotateX(3deg) scale(1.02);
+    }
+
+    .table-container {
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transform-style: preserve-3d;
+      transition: all 0.5s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    h3 {
+      text-align: center;
+      color: var(--accent-color);
+      font-family: 'MedievalSharp', cursive;
+      margin: 1rem 0;
+      letter-spacing: 1px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--light-text);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.1);
+      color: #80b3ff;
+    }
+
+    tr {
+      transition: background-color 0.3s ease;
+    }
+
+    tr:hover {
+      background: #4b0082;
+    }
+
+    code {
+      color: var(--accent-color);
+      background-color: #1a003e;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #3d3d3d;
+      display: block;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+    }
+
+    .card {
+      margin: 2rem auto;
+      max-width: 800px;
+      background: #1a003e;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid #3d3d3d;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(181, 126, 220, 0.4);
+    }
+
+    strong {
+      color: var(--primary-color);
+    }
+
+    .info-block {
+      background: #1a003e;
+      color: var(--light-text);
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem;
+      box-shadow: 0 0 10px rgba(255, 192, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .info-block:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+    }
+
+    .info-row {
+      margin-bottom: 0.5rem;
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-right: 0.5rem;
+      display: inline-block;
+      min-width: 120px;
+    }
+
+    .result-table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .result-table th, .result-table td {
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .result-table th {
+      background-color: rgba(181, 126, 220, 0.2);
+      color: var(--accent-color);
+    }
+
+    .result-table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .result-heading {
+      font-size: 1.1rem;
+      color: #80b3ff;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(181, 126, 220, 0.3);
+    }
+    
+    .relationships {
+      margin-top: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1.5rem;
+    }
+
+    .relationship {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .rel-table {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      background: rgba(128, 179, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .rel-arrow {
+      margin: 0 1rem;
+      color: #80b3ff;
+      font-size: 1.5rem;
+    }
+    
+    .report {
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .report h2 {
+      margin-top: 0;
+    }
+    
+    .report p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .key-reflection {
+      background: rgba(255, 105, 180, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-left: 4px solid var(--primary-color);
+      box-shadow: 0 4px 15px rgba(181, 126, 220, 0.2);
+    }
+
+    .dust {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background-color: #b57edc;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    /* Star field background effect */
+    .star {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background-color: white;
+      border-radius: 50%;
+      z-index: -2;
+      animation: twinkle 5s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      100% { opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <div class="content" id="content">
+    <h1>Database Project</h1>
+
+    <div class="table-container">
+      <h3>Books Table</h3>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Book ID:</span> 1</div>
+        <div class="info-row"><span class="label">Title:</span> Pride and Prejudice</div>
+        <div class="info-row"><span class="label">Author ID:</span> 1</div>
+        <div class="info-row"><span class="label">Available:</span> true</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Book ID:</span> 2</div>
+        <div class="info-row"><span class="label">Title:</span> Moby Dick</div>
+        <div class="info-row"><span class="label">Author ID:</span> 2</div>
+        <div class="info-row"><span class="label">Available:</span> false</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Book ID:</span> 3</div>
+        <div class="info-row"><span class="label">Title:</span> 1984</div>
+        <div class="info-row"><span class="label">Author ID:</span> 3</div>
+        <div class="info-row"><span class="label">Available:</span> true</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Book ID:</span> 4</div>
+        <div class="info-row"><span class="label">Title:</span> To Kill a Mockingbird</div>
+        <div class="info-row"><span class="label">Author ID:</span> 4</div>
+        <div class="info-row"><span class="label">Available:</span> true</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Book ID:</span> 5</div>
+        <div class="info-row"><span class="label">Title:</span> The Great Gatsby</div>
+        <div class="info-row"><span class="label">Author ID:</span> 5</div>
+        <div class="info-row"><span class="label">Available:</span> false</div>
+      </div>
+    </div>
+
+    <h2>Primary Key Tables</h2>
+    <div class="table-container">
+      <h3>Authors Table</h3>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Author:</span> Jane Austen</div>
+        <div class="info-row"><span class="label">Author ID:</span> 1</div>
+        <div class="info-row"><span class="label">Nationality:</span> British</div>
+        <div class="info-row"><span class="label">Language:</span> English</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Author:</span> Herman Melville</div>
+        <div class="info-row"><span class="label">Author ID:</span> 2</div>
+        <div class="info-row"><span class="label">Nationality:</span> American</div>
+        <div class="info-row"><span class="label">Language:</span> English</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Author:</span> George Orwell</div>
+        <div class="info-row"><span class="label">Author ID:</span> 3</div>
+        <div class="info-row"><span class="label">Nationality:</span> British</div>
+        <div class="info-row"><span class="label">Language:</span> English</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Author:</span> Harper Lee</div>
+        <div class="info-row"><span class="label">Author ID:</span> 4</div>
+        <div class="info-row"><span class="label">Nationality:</span> American</div>
+        <div class="info-row"><span class="label">Language:</span> English</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Author:</span> F. Scott Fitzgerald</div>
+        <div class="info-row"><span class="label">Author ID:</span> 5</div>
+        <div class="info-row"><span class="label">Nationality:</span> American</div>
+        <div class="info-row"><span class="label">Language:</span> English</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <h3>Checkouts Table</h3>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Checkout ID:</span> 101</div>
+        <div class="info-row"><span class="label">Book ID:</span> 1</div>
+        <div class="info-row"><span class="label">Checkout Date:</span> 2024-03-15</div>
+        <div class="info-row"><span class="label">Member ID:</span> 201</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Checkout ID:</span> 102</div>
+        <div class="info-row"><span class="label">Book ID:</span> 2</div>
+        <div class="info-row"><span class="label">Checkout Date:</span> 2024-02-22</div>
+        <div class="info-row"><span class="label">Member ID:</span> 202</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Checkout ID:</span> 103</div>
+        <div class="info-row"><span class="label">Book ID:</span> 3</div>
+        <div class="info-row"><span class="label">Checkout Date:</span> 2024-03-01</div>
+        <div class="info-row"><span class="label">Member ID:</span> 203</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Checkout ID:</span> 104</div>
+        <div class="info-row"><span class="label">Book ID:</span> 4</div>
+        <div class="info-row"><span class="label">Checkout Date:</span> 2024-03-10</div>
+        <div class="info-row"><span class="label">Member ID:</span> 204</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-row"><span class="label">Checkout ID:</span> 105</div>
+        <div class="info-row"><span class="label">Book ID:</span> 5</div>
+        <div class="info-row"><span class="label">Checkout Date:</span> 2024-02-28</div>
+        <div class="info-row"><span class="label">Member ID:</span> 205</div>
+      </div>
+    </div>
+
+    <h2>Primary Keys Analysis</h2>
+    <div class="key-reflection">
+      <p>Looking at these database tables, I can see the importance of primary keys in establishing unique identifiers. The Authors table uses Author ID as its primary key, which allows for efficient reference and prevents duplicate entries. Each author is assigned a unique numeric identifier.</p>
+      <p>In the Checkouts table, we have Checkout ID as the primary key, with Book ID and Member ID serving as foreign keys that link to other tables. The primary key ensures each checkout record can be uniquely identified in the system.</p>
+      <p>Primary keys are really important in database design because they help keep everything organized and accurate. They make sure each item in a table is unique and easy to find, which is super helpful when you're connecting data between different tables. For example, in this project, primary keys made it easier to track which books were checked out by which members without getting things mixed up.</p>
+    </div>
+    
+    <div class="table-container">
+      <h3>✅ Database Schema Visualization</h3>
+      
+      <div class="relationships">
+        <h3>Table Relationships</h3>
+        
+        <div class="relationship">
+          <div class="rel-table">
+            <strong>Books</strong><br>
+            PK: Book ID
+          </div>
+          <div class="rel-arrow">←</div>
+          <div class="rel-table">
+            <strong>Authors</strong><br>
+            PK: Author ID
+          </div>
+        </div>
+        
+        <div class="relationship">
+          <div class="rel-table">
+            <strong>Books</strong><br>
+            PK: Book ID
+          </div>
+          <div class="rel-arrow">→</div>
+          <div class="rel-table">
+            <strong>Checkouts</strong><br>
+            PK: Checkout ID<br>
+            FK: Book ID
+          </div>
+        </div>
+        
+        <div class="relationship">
+          <div class="rel-table">
+            <strong>Members</strong><br>
+            PK: Member ID
+          </div>
+          <div class="rel-arrow">→</div>
+          <div class="rel-table">
+            <strong>Checkouts</strong><br>
+            PK: Checkout ID<br>
+            FK: Member ID
+          </div>
+        </div>
+      </div>
+      
+      <p style="text-align:center; font-size: 1.2rem; color: #ff69b4;">Here's the link to see the original screenshot: <a href="https://drive.google.com/file/d/1jbnSynJ8mA0te8oX2kbPojXQ6UBYyDTE/view?usp=sharing" style="color: #80b3ff; text-decoration: none; border-bottom: 1px dotted #80b3ff;">View Original Image</a></p>
+    </div>
+
+    <div class="card">
+      <h3>🧠 Query 1: Find all books by American authors</h3>
+      <code>
+SELECT b.book_ID, b.title, a.author, a.nationality
+FROM BOOKS_TABLE b
+JOIN AUTHORS_TABLE a ON b.author_ID = a.author_ID
+WHERE a.nationality = 'American';
+      </code>
+      
+      <div class="result-heading">Query Result:</div>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>book_ID</th>
+            <th>title</th>
+            <th>author</th>
+            <th>nationality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2</td>
+            <td>Moby Dick</td>
+            <td>Herman Melville</td>
+            <td>American</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>To Kill a Mockingbird</td>
+            <td>Harper Lee</td>
+            <td>American</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>The Great Gatsby</td>
+            <td>F. Scott Fitzgerald</td>
+            <td>American</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="card">
+      <h3>🧠 Query 2: Find all currently checked out books with checkout dates</h3>
+      <code>
+SELECT b.book_ID, b.title, a.author, c.checkout_date, c.member_ID  
+FROM BOOKS_TABLE b
+JOIN AUTHORS_TABLE a ON b.author_ID = a.author_ID
+JOIN CHECKOUTS_TABLE c ON b.book_ID = c.book_ID
+WHERE b.available = false
+ORDER BY c.checkout_date;
+      </code>
+      
+      <div class="result-heading">Query Result:</div>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>book_ID</th>
+            <th>title</th>
+            <th>author</th>
+            <th>checkout_date</th>
+            <th>member_ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>5</td>
+            <td>The Great Gatsby</td>
+            <td>F. Scott Fitzgerald</td>
+            <td>2024-02-28</td>
+            <td>205</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Moby Dick</td>
+            <td>Herman Melville</td>
+            <td>2024-02-22</td>
+            <td>202</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="report">
+      <h2>Database Design Project Report</h2>
+      
+      <p>While working on this assignment, I ran into a few challenges. At first, I messed up the Books table by writing "yes" or "no" under the "available" column, but it was actually supposed to be "true" or "false." That caused a bit of confusion until I realized the issue and ChatGPT helped me realize this problem. But in the end, it all helped me understand how essential primary keys are and how even small mistakes can trip things up when you're working with databases.</p>
+      
+      <p>I also had a weird moment while validating my primary keys—a spider crawled across my keyboard mid-process, which honestly made things even more chaotic! I solved this problem with my friend Luise's help, she told me to change information's place and it worked.</p>
+      
+      <p>Another problem that I solved, but this time I did it by myself was the problem with columns in primary key files. Actually, professor helped me to realize this and I fixed it by myself.</p>
+      
+      <p>This project has significantly enhanced my understanding of database design principles, especially the critical role of primary keys in establishing data relationships. I've learned that careful planning of key structures and table relationships is essential for building effective database systems.</p>
+    </div>
+  </div>
+
+  <script>
+    // Function to create dust particles
+    function createDustParticles() {
+      const styleElement = document.createElement('style');
+      const dustContainer = document.createElement('div');
+      dustContainer.className = 'dust-container';
+      document.body.appendChild(dustContainer);
+      
+      for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = 'dust';
+        
+        const size = Math.random() * 3 + 1;
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+        element.style.opacity = Math.random() * 0.2 + 0.05;
+        element.style.left = `${Math.random() * 100}vw`;
+        element.style.top = `${Math.random() * 100}vh`;
+        
+        // Create unique animation names
+        const animationName = `float-${i}`;
+        const duration = Math.random() * 30 + 20;
+        
+        // Create keyframes for each dust particle
+        const keyframes = `
+          @keyframes ${animationName} {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px); }
+          }
+        `;
+        
+        styleElement.textContent += keyframes;
+        element.style.animation = `${animationName} ${duration}s infinite alternate ease-in-out`;
+        
+        dustContainer.appendChild(element);
+      }
+      
+      document.head.appendChild(styleElement);
+    }
+    
+    // Create a starry background
+    function createStars() {
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        star.style.opacity = Math.random() * 0.5 + 0.1;
+        document.body.appendChild(star);
+      }
+    }
+    
+    // Initialize
+    window.onload = function() {
+      createDustParticles();
+      createStars();
+      
+      // Add hover effects to info blocks
+      const infoBlocks = document.querySelectorAll('.info-block');
+      infoBlocks.forEach(block => {
+        block.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+          this.style.boxShadow = '0 8px 20px rgba(255, 105, 180, 0.4)';
+        });
+        
+        block.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '0 0 10px rgba(255, 192, 255, 0.2)';
+        });
+      });
+    };
+    
+    // Add click effect to content
+    document.getElementById('content').addEventListener('click', function() {
+      this.classList.toggle('clicked');
+    });
+  </script>
+</body>
+</html>
